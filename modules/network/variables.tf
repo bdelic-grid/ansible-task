@@ -40,5 +40,5 @@ variable "source_ranges" {
 variable "port_list" {
   description = "List of enabled ports in the firewall"
   type        = list(string)
-  default     = ["22", "80", "443"]
+  default     = ["22", "80", "443", "8080"]
 }

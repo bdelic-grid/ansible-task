@@ -1,0 +1,23 @@
+- name: Install requirements
+  hosts: all
+  
+  tasks:
+    - name: Apt update
+      become: True
+      command: apt update
+
+    - name: Install JRE
+      become: true
+      command: apt install -y openjdk-17-jre
+
+    - name: Copy .jar
+      ansible.builtin.copy:
+        src: ./spring-petclinic.jar
+        dest: ./spring-petclinic.jar
+    
+    - name: Run .jar
+      command: java -jar ./spring-petclinic.jar
+      poll: 0
+      async: 3600
+
+      
