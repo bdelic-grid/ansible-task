@@ -1,5 +1,11 @@
 .terraform
 terraform.tfstate
 terraform.tfstate.backup
+
 ssh_key
 ssh_key.pub
+
+.vscode
+
+apply.sh
+destroy.sh
