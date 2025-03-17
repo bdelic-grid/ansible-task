@@ -1,6 +1,7 @@
 .terraform
 terraform.tfstate
 terraform.tfstate.backup
+.terraform.tfstate.lock.info
 
 ssh_key
 ssh_key.pub
@@ -9,3 +10,5 @@ ssh_key.pub
 
 apply.sh
 destroy.sh
+
+inventory.ini
