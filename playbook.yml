@@ -1,52 +1,54 @@
-# - name: Install Java requirements
-#   hosts: java
-#   tasks:
-#     - name: Apt update
-#       become: True
-#       command: apt update
+- name: Install Java
+  hosts: java
+  tasks:
+    - name: Apt update
+      become: True
+      apt:
+        update_cache: yes
 
-#     - name: Install JRE
-#       become: true
-#       command: apt install -y openjdk-17-jre
+    - name: Install JRE
+      become: True
+      apt:
+        name: openjdk-17-jre
 
-#     - name: Copy .jar
-#       ansible.builtin.copy:
-#         src: ./spring-petclinic.jar
-#         dest: ./spring-petclinic.jar
+- name: Run Java petclinic
+  hosts: java
+  tasks:
+      - name: Copy .jar
+        copy:
+          src: ./spring-petclinic.jar
+          dest: ./spring-petclinic.jar
 
-# - name: Run Java petclinic
-#   hosts: java
-#   tasks:
-#       - name: Run .jar
-#         command: java -jar ./spring-petclinic.jar
-#         poll: 0
-#         async: 3600
+      - name: Run .jar
+        command: java -jar ./spring-petclinic.jar
+        poll: 0
+        async: 3600
 
-- name: Install Docker requirements
+  
+
+- name: Install Docker
   hosts: docker
   become: True
   tasks:
-    - name: Apt update
-      command: apt update
-
     - name: Pull Docker install script
-      command: curl -fsSL https://get.docker.com -o get-docker.sh
-      
-    - name: Make script executable
-      command: chmod +x get-docker.sh
+      command: curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh
 
     - name: Install Docker
-      ansible.builtin.shell: ./get-docker.sh
+      shell: ./get-docker.sh
 
 - name: Run Docker petclinic
   hosts: docker
   become: True
   tasks:
     - name: Pull the image
-      command: docker pull bole1709/main:actions
+      docker_image: 
+        name: bole1709/main:actions
+        source: pull
     
     - name: Run the image
-      command: docker run -d -p 8080:8080 bole1709/main:actions
-
-
+      docker_container:
+        name: petclinic
+        image: bole1709/main:actions
+        published_ports: 8080:8080
+        privileged: yes
       
