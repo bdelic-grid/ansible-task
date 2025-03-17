@@ -28,10 +28,10 @@
 
 - name: Install Docker
   hosts: docker
-  become: True
   tasks:
     - name: Pull Docker install script
-      command: curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh
+      become: True
+      shell: curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh
 
     - name: Install Docker
       shell: ./get-docker.sh
