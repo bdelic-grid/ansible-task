@@ -36,5 +36,5 @@ variable "instance_group" {
 variable "target_size" {
   description = "Number of instances in instance group"
   type        = number
-  default     = 2
+  default     = 3
 }
