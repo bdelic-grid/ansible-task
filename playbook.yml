@@ -2,12 +2,12 @@
   hosts: java
   tasks:
     - name: Apt update
-      become: True
+      become: yes
       apt:
         update_cache: yes
 
     - name: Install JRE
-      become: True
+      become: yes
       apt:
         name: openjdk-17-jre
 
@@ -30,7 +30,7 @@
   hosts: docker
   tasks:
     - name: Pull Docker install script
-      become: True
+      become: yes
       shell: curl -fsSL https://get.docker.com -o get-docker.sh && chmod +x get-docker.sh
 
     - name: Install Docker
@@ -38,7 +38,7 @@
 
 - name: Run Docker petclinic
   hosts: docker
-  become: True
+  become: yes
   tasks:
     - name: Pull the image
       docker_image: 
